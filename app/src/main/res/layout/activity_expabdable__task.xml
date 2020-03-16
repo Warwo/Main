@@ -29,4 +29,12 @@
 
     </ExpandableListView>
 
+    <TextView
+        android:id="@+id/mActivityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/exp"
+        app:layout_constraintTop_toTopOf="@+id/exp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
