@@ -28,7 +28,7 @@ public class MyCustomDialog extends DialogFragment {
     private Spinner mSpinner;
     private TextView mActionCancel, mActionOk;
 
-    private ArrayList<String> task_spinner;
+    private ArrayList<String> task_spinner, task_main;
     //
     private addTask addTask;
     private ExpandableListAdapter adapter;
@@ -50,6 +50,7 @@ public class MyCustomDialog extends DialogFragment {
 
         //ЗАПОЛНЕНИЕ СПИНЕРА
         task_spinner = getArguments().getStringArrayList("task_header");
+
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, task_spinner);
 
         mSpinner.setAdapter(arrayAdapter);
@@ -68,13 +69,17 @@ public class MyCustomDialog extends DialogFragment {
             public void onClick(View v) {
                 Log.d(TAG,"onClick: capturing task" );
                 String input = mInput.getText().toString();
-                task_spinner.add(input);
-
                 int positionSpinner = mSpinner.getSelectedItemPosition();
+                task_main = getArguments().getStringArrayList(""+positionSpinner);
+                task_main.add(input);
+
+
+
+
                 if(!input.equals("")){
                    // ((Expabdable_Task)getActivity()).textView.setText(input);
                     // ((Expabdable_Task)getActivity()).list_task_Child.put(((Expabdable_Task) getActivity()).list_task_Header.get(positionSpinner),task_spinner);
-                    addTask.add(positionSpinner,task_spinner);
+                    addTask.add(positionSpinner,task_main);
                 }
                 getDialog().dismiss();
             }

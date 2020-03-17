@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private FirebaseAuth mAuth;
 
+    private boolean Autorization;
+
     private EditText Email, Pass;
     private Button SignIn;
     String TAG = "Main";
@@ -52,13 +54,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                    Log.d(TAG, "signInWithEmail:success");
                     FirebaseUser user = mAuth.getCurrentUser();
                     Toast.makeText(MainActivity.this,"Autentification success", Toast.LENGTH_LONG).show();
-
+                    Autorization = true;
 
                 }
                 else{
                     Log.w(TAG,"signInWithEmail:failing",task.getException());
                     Toast.makeText(MainActivity.this, "Authentication failed.",
                             Toast.LENGTH_SHORT).show();
+                    Autorization = false;
+                }
+                if(Autorization == true){
+                    Intent intent = new Intent(MainActivity.this, Expabdable_Task.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -84,10 +91,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         if(v.getId() == R.id.button){
             //ПЕРЕХОД
-            Intent intent = new Intent(MainActivity.this, Expabdable_Task.class);
-            startActivity(intent);
 
-           // SignIn(Email.getText().toString(), Pass.getText().toString());
+
+           SignIn(Email.getText().toString(), Pass.getText().toString());
+
         }
     }
     @Override

@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Expabdable_Task"></activity>
+        <activity android:name=".Expabdable_Task"
+            android:label="Task"
+            android:theme="@style/AppThemeMain"></activity>
         <activity
             android:name=".Registration"
             android:screenOrientation="portrait" />

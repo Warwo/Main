@@ -19,6 +19,7 @@ public class CustomExpandable extends BaseExpandableListAdapter {
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, List<String>> _listDataChild;
+    private RadioButton radioButton;
 
     public CustomExpandable(Context _context, List<String> _listDataHeader, HashMap<String, List<String>> _listDataChild) {
         this._context = _context;
@@ -90,7 +91,7 @@ public class CustomExpandable extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.item_list, null);
         }
 
-        RadioButton radioButton = convertView.findViewById(R.id.radioButton2);
+        radioButton = convertView.findViewById(R.id.radioButton2);
         radioButton.setText(childText);
 
         return convertView;
@@ -105,4 +106,5 @@ public class CustomExpandable extends BaseExpandableListAdapter {
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
     }
+
 }
