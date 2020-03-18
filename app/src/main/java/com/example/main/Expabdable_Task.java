@@ -24,12 +24,14 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.common.internal.StringResourceValueReader;
 import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.awt.font.TextAttribute;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,9 +55,9 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
     FloatingActionButton floatingActionButton;
 
     //Коллекции
-    List<String> First = new ArrayList<String>();
-    List<String> Second = new ArrayList<String>();
-    List<String> Three = new ArrayList<String>();
+    ArrayList<String> First = new ArrayList<String>();
+    ArrayList<String> Second = new ArrayList<String>();
+    ArrayList<String> Three = new ArrayList<String>();
 
 
     @Override
@@ -63,6 +65,9 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expabdable__task);
 
+        First =loadArrayList("First");
+        Second =loadArrayList("Second");
+        Second =loadArrayList("Three");
 
         //SharedPreferences preferences = this.getSharedPreferences()
 
@@ -116,18 +121,18 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
             list_task_Header.add("Second");
             list_task_Header.add("Three");
 
-            First.add("Съесть тортик");
+           /* First.add("Съесть тортик");
             First.add("Погулять с собакоц");
-            First.add("Принять душ");
+            First.add("Принять душ");*/
 
-            Second.add("1");
+            /*Second.add("1");
             Second.add("2");
-            Second.add("3");
+            Second.add("3");*/
 
 
-            Three.add("Коронавирус");
+           /* Three.add("Коронавирус");
             Three.add("Эбола");
-            Three.add("СПИД");
+            Three.add("СПИД");*/
 
 
             list_task_Child.put(list_task_Header.get(0),First);
@@ -187,14 +192,33 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
     @Override
     protected void onPause() {
         super.onPause();
+        saveArrayList("First",First);
+        saveArrayList("Second",Second);
+        saveArrayList("Three",Three);
 
-       /* SharedPreferences.Editor editor = mSave.edit();
-        try{
-            Seri
-        editor.putString(APP_PREFERENCES_FIRSTLIST, ObjectSerializer.);
-        editor.apply();}
-        catch (IOException ex){
-            ex.printStackTrace();
-        }*/
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    private void saveArrayList(String name , ArrayList<String> list){
+        SharedPreferences prefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        StringBuilder sb = new StringBuilder();
+        for(String s :list) sb.append(s).append("<s>");
+        sb.delete(sb.length() -3,sb.length());
+        editor.putString(name,sb.toString()).apply();
+    }
+    private ArrayList<String> loadArrayList(String name) {
+        SharedPreferences prefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+        String[] strings = prefs.getString(name, "").split("<s>");
+        ArrayList<String> list = new ArrayList<>();
+        list.addAll(Arrays.asList(strings));
+        return list;
+    }
+
+
 }

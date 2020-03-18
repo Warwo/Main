@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -46,30 +49,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!validateForm()) {
             return;
         }
+        if(hasConnection(MainActivity.this) == false)
+        Toast.makeText(this,"Internet failed", Toast.LENGTH_LONG).show();
+        else {
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "signInWithEmail:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Toast.makeText(MainActivity.this,"Autentification success", Toast.LENGTH_LONG).show();
+                        Autorization = true;
 
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                   Log.d(TAG, "signInWithEmail:success");
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    Toast.makeText(MainActivity.this,"Autentification success", Toast.LENGTH_LONG).show();
-                    Autorization = true;
-
+                    } else {
+                        Log.w(TAG, "signInWithEmail:failing", task.getException());
+                        Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        Autorization = false;
+                    }
+                    if (Autorization == true) {
+                        Intent intent = new Intent(MainActivity.this, Expabdable_Task.class);
+                        startActivity(intent);
+                    }
                 }
-                else{
-                    Log.w(TAG,"signInWithEmail:failing",task.getException());
-                    Toast.makeText(MainActivity.this, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show();
-                    Autorization = false;
-                }
-                if(Autorization == true){
-                    Intent intent = new Intent(MainActivity.this, Expabdable_Task.class);
-                    startActivity(intent);
-                }
-            }
-        });
-
+            });
+        }
 
     }
     private void signOut() {
@@ -91,7 +94,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         if(v.getId() == R.id.button){
             //ПЕРЕХОД
-
+            /*Intent intent = new Intent(MainActivity.this, Expabdable_Task.class);
+            startActivity(intent);*/
 
            SignIn(Email.getText().toString(), Pass.getText().toString());
 
@@ -129,4 +133,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return valid;
     }
+
+    public static boolean hasConnection(final Context context)
+    {
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            return true;
+        }
+        wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            return true;
+        }
+        wifiInfo = cm.getActiveNetworkInfo();
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            return true;
+        }
+        return false;
+    }
 }
+
