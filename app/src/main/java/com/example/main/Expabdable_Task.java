@@ -1,5 +1,6 @@
 package com.example.main;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,11 +9,14 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
@@ -27,6 +31,7 @@ import android.widget.TextView;
 import com.google.android.gms.common.internal.StringResourceValueReader;
 import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.awt.font.TextAttribute;
 import java.io.IOException;
@@ -64,6 +69,9 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expabdable__task);
+
+        Bundle arguments = getIntent().getExtras();
+
 
         First =loadArrayList("First");
         Second =loadArrayList("Second");
@@ -110,7 +118,24 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
 
         mSave =getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
     }
-        private void prepareListData() {
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.my_expandable_menu,menu);
+        //return super.onCreateOptionsMenu(menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.item1){
+            disconnect();
+        }
+        return true;
+        //return super.onOptionsItemSelected(item);
+    }
+
+    private void prepareListData() {
 
             list_task_Header = new ArrayList<String>();
             list_task_Child= new HashMap<String, List<String>>();
@@ -141,6 +166,11 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
 
     }
 
+    public void disconnect(){
+        FirebaseAuth.getInstance().signOut();
+        Intent back = new Intent(Expabdable_Task.this, MainActivity.class);
+        startActivity(back);
+    }
 
     @Override
     public void add(int i, List<String> m) {
@@ -184,8 +214,7 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
                         ((BaseExpandableListAdapter)expandableListView.getExpandableListAdapter()).notifyDataSetChanged();
                     }
                 }*/
-            Log.d("TAG", str);
-
+            //Log.d("TAG", str);
         }
     }
 
