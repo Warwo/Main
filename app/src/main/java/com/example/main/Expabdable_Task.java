@@ -73,9 +73,9 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
         Bundle arguments = getIntent().getExtras();
 
 
-        First =loadArrayList("First");
-        Second =loadArrayList("Second");
-        Second =loadArrayList("Three");
+       First =loadArrayList("First");
+       Second =loadArrayList("Second");
+       Three =loadArrayList("Three");
 
         //SharedPreferences preferences = this.getSharedPreferences()
 
@@ -146,16 +146,16 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
             list_task_Header.add("Second");
             list_task_Header.add("Three");
 
-           /* First.add("Съесть тортик");
+            /*First.add("Съесть тортик");
             First.add("Погулять с собакоц");
-            First.add("Принять душ");*/
+            First.add("Принять душ");
 
-            /*Second.add("1");
+            Second.add("1");
             Second.add("2");
-            Second.add("3");*/
+            Second.add("3");
 
 
-           /* Three.add("Коронавирус");
+            Three.add("Коронавирус");
             Three.add("Эбола");
             Three.add("СПИД");*/
 
@@ -189,23 +189,34 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
 
             String str = (String)radioButton.getText();
 
+            if(First.size() == 0){First =null;}
+            else {
                 for(int i =0; i<First.size(); i++)
                 {
                     if(str == First.get(0));
                     First.remove(str);
-                    Log.d("d", ""+ First.size() + First.get(i));
-                }
+//                    Log.d("1", ""+ First.size() + First.get(i));
+                }}
+
+            if (Second.size() == 0) {
+                Second = null;
+            }else{
                 for(int i =0; i<Second.size(); i++)
                 {
                     if(str == Second.get(0));
                     Second.remove(str);
-                }
 
-                for(int i =0; i<First.size(); i++)
+                }}
+
+            if (Three.size() == 0) {
+                Three = null;
+            }else{
+                for(int i =0; i<Three.size(); i++)
                 {
                     if(str == Three.get(0));
                     Three.remove(str);
-                }
+
+                }}
             ((BaseExpandableListAdapter)expandableListView.getExpandableListAdapter()).notifyDataSetChanged();
                /* for(String ss: First)
                 {
@@ -214,7 +225,7 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
                         ((BaseExpandableListAdapter)expandableListView.getExpandableListAdapter()).notifyDataSetChanged();
                     }
                 }*/
-            //Log.d("TAG", str);
+            Log.d("TAG", str);
         }
     }
 
