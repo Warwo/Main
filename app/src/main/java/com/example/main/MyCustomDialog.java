@@ -70,7 +70,8 @@ public class MyCustomDialog extends DialogFragment {
                 Log.d(TAG,"onClick: capturing task" );
                 String input = mInput.getText().toString();
                 int positionSpinner = mSpinner.getSelectedItemPosition();
-                task_main = getArguments().getStringArrayList(""+positionSpinner);
+                String spin = mSpinner.getSelectedItem().toString();
+                task_main = getArguments().getStringArrayList(spin);
                 task_main.add(input);
 
 

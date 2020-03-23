@@ -46,12 +46,7 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
 
     //Сохранение
     public static final String APP_PREFERENCES = "MYSAVE";
-    public static final ArrayList<String> APP_PREFERENCES_FIRSTLIST = new ArrayList<>();
-    public static final ArrayList<String> APP_PREFERENCES_SECONDLIST = new ArrayList<>();
-    public static final ArrayList<String> APP_PREFERENCES_THREELIST = new ArrayList<>();
-    private SharedPreferences mSave;
-    
-    
+
 
     ExpandableListView expandableListView;
     ExpandableListAdapter adapter;
@@ -59,10 +54,16 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
     HashMap<String,List<String>> list_task_Child;
     FloatingActionButton floatingActionButton;
 
+    ArrayList<My_Task> list_task;
+    HashMap<My_Task, List<My_Subtask>> list_sub_task;
+    List<My_Subtask> list_mySub;
+
     //Коллекции
     ArrayList<String> First = new ArrayList<String>();
     ArrayList<String> Second = new ArrayList<String>();
     ArrayList<String> Three = new ArrayList<String>();
+
+    ArrayList<String> headerTaskName;
 
 
     @Override
@@ -85,8 +86,9 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
 
 
         prepareListData();
-
-        adapter = new CustomExpandable(this, list_task_Header, list_task_Child);
+        //АДАПТЕР
+        // adapter = new CustomExpandable(this, list_task_Header, list_task_Child);
+        adapter = new _Expandable_Task_Adapter(this, list_task, list_sub_task );
         expandableListView.setAdapter(adapter);
 
 
@@ -104,10 +106,18 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
                 MyCustomDialog myCustomDialog = new MyCustomDialog();
                // myCustomDialog.show(getFragmentManager(), "MyCustomDialog");
                 Bundle args = new Bundle();
+                for(int i =0;i <list_task.size(); i++){
+                    headerTaskName = new ArrayList<>();
+                    headerTaskName.add(list_task.get(i).getName());
+                    ArrayList<String> t_l = new ArrayList<>();
+                    t_l.add(list_mySub.get(i).getName());
+                    args.putStringArrayList(""+i,t_l);
+                }
+                args.putStringArrayList("task_header",headerTaskName);
                 args.putStringArrayList("0", (ArrayList<String>) First);
                 args.putStringArrayList("1", (ArrayList<String>) Second);
                 args.putStringArrayList("2", (ArrayList<String>) Three);
-                args.putStringArrayList("task_header", (ArrayList<String>) list_task_Header);
+                //args.putStringArrayList("task_header", (ArrayList<String>) list_task_Header);
                 myCustomDialog.setArguments(args);
                 myCustomDialog.show(getSupportFragmentManager(),"MyCustomTAG");
                 ((BaseExpandableListAdapter)expandableListView.getExpandableListAdapter()).notifyDataSetChanged();
@@ -116,7 +126,6 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
         });
 
 
-        mSave =getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -140,7 +149,18 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
             list_task_Header = new ArrayList<String>();
             list_task_Child= new HashMap<String, List<String>>();
 
+            list_task = new ArrayList<>();
+            list_sub_task = new HashMap<>();
+            list_mySub = new ArrayList<>();
+            list_mySub.add(new My_Subtask("Подзадача","Отложенная","Завтра"));
+            list_mySub.add(new My_Subtask("Подзадача2","Отложенная","Завтра"));
+            list_task.add(new My_Task("Задача","Отложенная","Завтра",list_mySub));
+            list_task.add(new My_Task("Задача2","Отложенная","Завтра",list_mySub));
 
+            for (int i =0; i<list_task.size(); i++){
+            list_sub_task.put(list_task.get(i),list_task.get(i).getList_sub());
+            }
+            Log.d("Vanesa", ""+list_mySub.size());
 
             list_task_Header.add("First");
             list_task_Header.add("Second");

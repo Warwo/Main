@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1014757571738",
+    "firebase_url": "https://organ-962b6.firebaseio.com",
+    "project_id": "organ-962b6",
+    "storage_bucket": "organ-962b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014757571738:android:412a77562031ffee28b323",
+        "android_client_info": {
+          "package_name": "com.example.main"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014757571738-8qqkj0m7fmntvhu818hr0vtdukbi5bsa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.main",
+            "certificate_hash": "05cb5181f6f886dcb8475d47ef4cf0938c8dabbf"
+          }
+        },
+        {
+          "client_id": "1014757571738-289kqfu4epik5r6nia7dt2m1530eeeo6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhGELKLxM-4rr7UpbSpUJ_MN3-6Gr9szI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014757571738-289kqfu4epik5r6nia7dt2m1530eeeo6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
