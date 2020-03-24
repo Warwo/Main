@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/res_task"
+        android:layout_width="381dp"
+        android:layout_height="31dp"
+        android:layout_marginLeft="16dp"
+        android:layout_weight="1"
+        android:minHeight="32dp"
+        android:text="Задача"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/radioButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/res_date"
+            android:layout_width="91dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="3"
+            android:text="Дата"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/res_task" />
+
+
+        <TextView
+            android:id="@+id/res_status"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginEnd="52dp"
+            android:layout_marginRight="52dp"
+            android:layout_weight="1"
+            android:text="Статус"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/res_task" />
+    </LinearLayout>
+</LinearLayout>

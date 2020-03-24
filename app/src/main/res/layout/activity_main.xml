@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/mainlog" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/res_task"
         android:layout_width="189dp"
         android:layout_height="37dp"
         android:layout_marginTop="22dp"
@@ -61,10 +61,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/res_task" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/res_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"

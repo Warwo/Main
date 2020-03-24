@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Main</string>
-
+    <string name="hint_dialog">Введите текст</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.main;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,10 +38,12 @@ public class _Expandable_Task_Adapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int groupPosition) {
         try{
+            Log.d("Exp_LIST", "child create");
             return this.hashMap.get(my_task.get(groupPosition)).size();
         }
         catch (Exception ex){
             ex.printStackTrace();
+            Log.d("Exp_LIST", "child destroy");
             return 0;
         }
     }
@@ -73,13 +76,18 @@ public class _Expandable_Task_Adapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         My_Task headerTitle = (My_Task) getGroup(groupPosition);
+        Log.d("myTAG", "h: "+ headerTitle);
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.group_list, null);
+        convertView = inflater.inflate(R.layout.main_list, null);
         }
-        TextView textView = convertView.findViewById(R.id.radioButton);
-        textView.setText(headerTitle.getName());
+        TextView res_task = convertView.findViewById(R.id.res_task);
+        res_task.setText(headerTitle.getName());
+        TextView res_status = convertView.findViewById(R.id.res_status);
+        res_status.setText(headerTitle.getStatus());
+        TextView res_date = convertView.findViewById(R.id.res_date);
+        res_date.setText(headerTitle.getNdate());
 
         return convertView;
     }
@@ -87,14 +95,16 @@ public class _Expandable_Task_Adapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         My_Subtask childText = (My_Subtask) getChild(groupPosition, childPosition);
+        Log.d("myTAG", ""+ childText);
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.item_list, null);
+            convertView = infalInflater.inflate(R.layout.sub_list, null);
         }
 
         radioButton = convertView.findViewById(R.id.radioButton2);
-        radioButton.setText(childText.getName());
+        TextView textView = convertView.findViewById(R.id.textView4);
+        textView.setText(childText.getName());
 
         return convertView;
     }
@@ -103,4 +113,11 @@ public class _Expandable_Task_Adapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
-}
+}/*<RadioButton
+android:id="@+id/radioButton"
+android:layout_width="33dp"
+android:layout_height="29dp"
+android:layout_marginStart="4dp"
+android:layout_marginLeft="4dp"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent" />*/

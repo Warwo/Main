@@ -14,4 +14,5 @@
         android:text="Название группы"
         android:textColor="#FFFFFF"
         android:textSize="14sp" />
+
 </LinearLayout>

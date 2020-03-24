@@ -88,7 +88,7 @@ public class CustomExpandable extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.item_list, null);
+            convertView = infalInflater.inflate(R.layout.sub_list, null);
         }
 
         radioButton = convertView.findViewById(R.id.radioButton2);

@@ -12,7 +12,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -89,9 +91,25 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
         //АДАПТЕР
         // adapter = new CustomExpandable(this, list_task_Header, list_task_Child);
         adapter = new _Expandable_Task_Adapter(this, list_task, list_sub_task );
+
+
+
+
         expandableListView.setAdapter(adapter);
+        /*int count = adapter.getGroupCount();
+        for ( int i = 0; i < count; i++ )
+            expandableListView.expandGroup(i);*/
 
 
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+        if(Build.VERSION.SDK_INT< Build.VERSION_CODES.JELLY_BEAN_MR2){
+            expandableListView.setIndicatorBounds(width - GetPixelFromDips(50), width - GetPixelFromDips(10));
+        }
+        else{
+            expandableListView.setIndicatorBounds(width - GetPixelFromDips(50), width - GetPixelFromDips(10));
+        }
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +146,12 @@ public class Expabdable_Task extends AppCompatActivity implements addTask, View.
 
     }
 
+    public int GetPixelFromDips(float pixels) {
+        // Get the screen's density scale
+        final float scale = getResources().getDisplayMetrics().density;
+        // Convert the dps to pixels, based on density scale
+        return (int) (pixels * scale + 0.5f);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.my_expandable_menu,menu);
